@@ -10,7 +10,12 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('login', (username, password) => {
+  cy.get('#ctl00_ContentPlaceHolder1_txt_Usuario').type(username)
+  cy.get('#ctl00_ContentPlaceHolder1_txt_Password').type(password)
+  cy.get('#ctl00_ContentPlaceHolder1_btn_Aceptar').click()
+  cy.wait(2500)
+})
 //
 //
 // -- This is a child command --
