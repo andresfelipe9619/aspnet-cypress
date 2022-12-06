@@ -1,0 +1,35 @@
+{
+    "aguila": {
+        "id": "00807",
+        "asunto": {
+            "id": "7",
+            "descripcion": "Asistencia Legal"
+        },
+        "descripcion": "El Aguila Compañía de Seguros, S.A. de C.V."
+    },
+    "creel": {
+        "id": "00001",
+        "descripcion": "CREEL"
+    },
+    "mbia": {
+        "id": "00295",
+        "asunto": "27 - Tax Audit",
+        "descripcion": "MBIA Insurance Corporation"
+    },
+    "creek": {
+        "id": "00081",
+        "asunto": {
+            "id": "110",
+            "descripcion": "Gran Ciudad PropCo LTIP"
+        },
+        "descripcion": "Black Creek Group",
+        "LEDES": {
+            "tarea": {
+                "id": "C100"
+            },
+            "actividad": {
+                "id": "A104"
+            }
+        }
+    }
+}
