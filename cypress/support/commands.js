@@ -16,6 +16,46 @@ Cypress.Commands.add('login', (username, password) => {
   cy.get('#ctl00_ContentPlaceHolder1_btn_Aceptar').click()
   cy.wait(2500)
 })
+
+Cypress.Commands.add('selectClient', (id, description) => {
+  cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Identificador')
+    .type(id)
+    .blur()
+  cy.get('@open').should('have.been.calledOnce')
+  cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Descripcion')
+    .focus()
+    .type(description)
+  cy.get(
+    '#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_AutoCompleteExtender1_completionListElem > li'
+  )
+    .first()
+    .click()
+  cy.wait(2000)
+})
+
+Cypress.Commands.add('selectSubject', (subject, autoselect = true) => {
+  cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Identificador')
+    .type(subject.id)
+    .blur()
+  cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Descripcion')
+    .focus()
+    .wait(500)
+    .type(subject.descripcion)
+  if (autoselect) {
+    cy.get(
+      '#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_AutoCompleteExtender1_completionListElem > li'
+    )
+      .first()
+      .click()
+    cy.wait(2000)
+  }
+})
+
+Cypress.Commands.add('selectTime', (time, description) => {
+  cy.get('#ctl00_ContentPlaceHolder1_Tiempo_DEC').type(time).blur()
+  cy.get('#ctl00_ContentPlaceHolder1_txt_Descripcion').type(description).blur()
+  cy.wait(2500)
+})
 //
 //
 // -- This is a child command --

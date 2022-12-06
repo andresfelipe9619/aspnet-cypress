@@ -23,34 +23,10 @@ describe('Gestion de Tiempos', () => {
 
     // Seleccionar Cliente
     const { id, descripcion } = this.client.creel
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Identificador')
-      .type(id)
-      .blur()
-    cy.get('@open').should('have.been.calledOnce')
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Descripcion')
-      .focus()
-      .type(descripcion)
-    cy.get(
-      '#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_AutoCompleteExtender1_completionListElem > li'
-    )
-      .first()
-      .click()
-    cy.wait(2000)
+    cy.selectClient(id, descripcion)
 
     // Seleccionar Asunto
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Identificador')
-      .type('139')
-      .blur()
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Descripcion')
-      .focus()
-      .wait(500)
-      .type('Entrevistas y Proceso de Contratación')
-    cy.get(
-      '#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_AutoCompleteExtender1_completionListElem > li'
-    )
-      .first()
-      .click()
-    cy.wait(2000)
+    cy.selectSubject(asunto)
 
     // Selecciona tiempo y descripcion
     cy.get('#ctl00_ContentPlaceHolder1_Tiempo_DEC').type('1.25').blur()
@@ -73,41 +49,17 @@ describe('Gestion de Tiempos', () => {
 
     // Seleccionar Cliente
     const { id, descripcion, asunto, LEDES } = this.client.creek
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Identificador')
-      .type(id)
-      .blur()
-    cy.get('@open').should('have.been.calledOnce')
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Descripcion')
-      .focus()
-      .type(descripcion)
-    cy.get(
-      '#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_AutoCompleteExtender1_completionListElem > li'
-    )
-      .first()
-      .click()
-    cy.wait(2000)
+    cy.selectClient(id, descripcion)
 
     // Seleccionar Asunto
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Identificador')
-      .type(asunto.id)
-      .blur()
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Descripcion')
-      .focus()
-      .wait(500)
-      .type(asunto.descripcion)
-    cy.get(
-      '#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_AutoCompleteExtender1_completionListElem > li'
-    )
-      .first()
-      .click()
-    cy.wait(2000)
+    cy.selectSubject(asunto)
 
     // Selecciona tiempo y descripcion
-    cy.get('#ctl00_ContentPlaceHolder1_Tiempo_DEC').type('1.25').blur()
-    cy.get('#ctl00_ContentPlaceHolder1_txt_Descripcion').type('Tiempo 1').blur()
+    cy.selectTime('1.25', 'Tiempo 1')
 
     // Crea tiempo
     cy.get('#ctl00_ContentPlaceHolder1_btn_Agregar').click()
+
     cy.wait(2000)
     cy.get('td', { timeout: 10000 })
       .contains('139 - Entrevistas y Proceso de Contratación')
@@ -123,17 +75,13 @@ describe('Gestion de Tiempos', () => {
 
     // Seleccionar Cliente
     const { id, descripcion } = this.client.creel
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Identificador')
-      .type(id)
-      .blur()
-    cy.get('@open').should('have.been.calledOnce')
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Descripcion')
-      .focus()
-      .type(descripcion)
+    cy.selectClient(id, descripcion)
 
-    cy.get('#ctl00_ContentPlaceHolder1_Tiempo_DEC').type('1.25').blur()
-    cy.get('#ctl00_ContentPlaceHolder1_txt_Descripcion').type('Tiempo 1').blur()
+    // Selecciona tiempo y descripcion
+    cy.selectTime('1.25', 'Tiempo 1')
+
     cy.get('#ctl00_ContentPlaceHolder1_btn_Agregar').click()
+
     cy.get('#ctl00_ContentPlaceHolder1_lbl_Mensaje').should('be.visible')
   })
 
@@ -146,32 +94,16 @@ describe('Gestion de Tiempos', () => {
 
     // Seleccionar Cliente
     const { id, descripcion } = this.client.creel
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Identificador')
-      .type(id)
-      .blur()
-    cy.get('@open').should('have.been.calledOnce')
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_txt_Descripcion')
-      .focus()
-      .type(descripcion)
-    cy.get(
-      '#ctl00_ContentPlaceHolder1_GS_Filtro_Cliente_AutoCompleteExtender1_completionListElem > li'
-    )
-      .first()
-      .click()
-    cy.wait(2000)
+    cy.selectClient(id, descripcion)
 
     // Seleccionar Asunto
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Identificador')
-      .type('7')
-      .blur()
-    cy.get('#ctl00_ContentPlaceHolder1_GS_Filtro_Asunto_txt_Descripcion')
-      .focus()
-      .wait(500)
-      .type('Este asunto es incorrecto')
+    cy.selectSubject({ id: 7, descripcion: 'Este asunto es incorrecto' }, false)
 
-    cy.get('#ctl00_ContentPlaceHolder1_Tiempo_DEC').type('1.25').blur()
-    cy.get('#ctl00_ContentPlaceHolder1_txt_Descripcion').type('Tiempo 1').blur()
+    // Selecciona tiempo y descripcion
+    cy.selectTime('1.25', 'Tiempo 1')
+
     cy.get('#ctl00_ContentPlaceHolder1_btn_Agregar').click()
+
     cy.get('#ctl00_ContentPlaceHolder1_lbl_Mensaje').should('be.visible')
   })
 
